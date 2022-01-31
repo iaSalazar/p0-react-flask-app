@@ -1,7 +1,8 @@
 {
-  "name": "client",
+  "name": "react-flask-app",
   "version": "0.1.0",
   "private": true,
+  "proxy":"http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -15,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "stop": "pkill --signal SIGINT app.js"
   },
   "eslintConfig": {
     "extends": [
@@ -35,4 +37,5 @@
       "last 1 safari version"
     ]
   }
+  
 }

@@ -1,5 +1,6 @@
 
-import react, {useState, useEffect} from 'react';
+import react, { useState, useEffect } from 'react';
+import {login, authFetch, useAuth, logout} from "../auth"
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,8 +12,10 @@ export default function Login() {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const token = sessionStorage.getItem("token")
+  //const [logged] = useAuth();
 
-  const onSubmitClick = (e)=>{
+  const onSubmitClick = (e) => {
     e.preventDefault()
     console.log("You pressed login")
     let opts = {
@@ -28,8 +31,9 @@ export default function Login() {
       body: JSON.stringify(opts)
     }).then(r => r.json())
       .then(token => {
-        if (token.access_token){
-          console.log(token)          
+        if (token.access_token) {
+          sessionStorage.setItem("token", token.access_token)
+          console.log(token)
         }
         else {
           console.log("Please type in correct username/password")
@@ -48,54 +52,57 @@ export default function Login() {
   return (
     <div>
       <h2>Login</h2>
-      <form action="#">
-        <div>
-          <input type="text" 
-            placeholder="Username" 
-            onChange={handleUsernameChange}
-            value={username} 
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={handlePasswordChange}
-            value={password}
-          />
-        </div>
-        <button onClick={onSubmitClick} type="submit">
-          Login Now
-        </button>
-      </form>
+     
+        <form action="#">
+
+          <div>
+            <input type="text"
+              placeholder="Username"
+              onChange={handleUsernameChange}
+              value={username}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handlePasswordChange}
+              value={password}
+            />
+          </div>
+          <button onClick={onSubmitClick} type="submit">
+            Login Now
+          </button>
+        </form>
+      
     </div>
   )
 }
  /*  const  [data, setData] = useState([{}])
 
-  useEffect(() => {
-    fetch("/members").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-          
-      }
-    )
-  }, [])
+ useEffect(() => {
+   fetch("/members").then(
+     res => res.json()
+   ).then(
+     data => {
+       setData(data)
+       console.log(data)
+         
+     }
+   )
+ }, [])
 
-  return (
-    <div>
-      {(typeof data.members === 'undefined') ? (
-        <p>loading...</p>
-      ): (
-        data.members.map((member, i) => (
-          <p key = {i}>{member}</p>
-        ))
-      )}
+ return (
+   <div>
+     {(typeof data.members === 'undefined') ? (
+       <p>loading...</p>
+     ): (
+       data.members.map((member, i) => (
+         <p key = {i}>{member}</p>
+       ))
+     )}
 
-    </div>
-  )
+   </div>
+ )
 }
- */
+*/

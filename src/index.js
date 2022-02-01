@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 //import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+//import {login, authFetch, useAuth, logout} from "./auth"
 import {
   Navigation,
   Footer,

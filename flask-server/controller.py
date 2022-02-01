@@ -15,9 +15,13 @@ from flask_jwt_extended import JWTManager
 
 jwt = JWTManager(app)
 
-@app.route('/members')
+@app.route('/members', methods=["GET"])
+@jwt_required()
 def members():
-    return {"members": ["member1","Member2","Member3"]}
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    #return jsonify(logged_in_as=current_user), 200
+    return {"members": ["member1","Member2","Member3"]}, 200
 
 
 # Create a route to authenticate your users and return JWTs. The

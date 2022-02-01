@@ -1,0 +1,50 @@
+import React from "react";
+import react, { useState, useEffect } from 'react';
+
+function Home() {
+  const [data, setData] = useState([{}])
+
+  useEffect(() => {
+    fetch("/members").then(
+      res => res.json()
+    ).then(
+      data => {
+        setData(data)
+        console.log(data)
+
+      }
+    )
+  }, [])
+
+
+  return (
+    <div className="home">
+      <div class="container">
+        <div class="row align-items-center my-5">
+          <div class="col-lg-7">
+            <img
+              class="img-fluid rounded mb-4 mb-lg-0"
+              src="http://placehold.it/900x400"
+              alt=""
+            />
+          </div>
+          <div class="col-lg-5">
+            <h1 class="font-weight-light">Home</h1>
+            <div>
+              {(typeof data.members === 'undefined') ? (
+                <p>loading...</p>
+              ) : (
+                data.members.map((member, i) => (
+                  <p key={i}>{member}</p>
+                ))
+              )}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Home;

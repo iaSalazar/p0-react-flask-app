@@ -1,6 +1,6 @@
 
 from sqlalchemy import Integer
-from app import db
+from app import db, ma
 
 
 class User(db.Model):
@@ -38,3 +38,18 @@ class Event(db.Model):
     description=db.Column(db.String(255))
     id_user=db.Column(Integer, db.ForeignKey(User.id))
 
+###############################################
+###############################################3
+#SCHEMAS 
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "username", "password","roles", "is_active")
+
+class EventSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "name", "description","id_user")
+
+user_schema = UserSchema()
+
+event_schema = EventSchema()
+events_schema = EventSchema(many = True)

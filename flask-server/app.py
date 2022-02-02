@@ -23,7 +23,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 api = Api(app)
-
+db.init_app(app)
 
 # It must be done after declaring app adn db
 

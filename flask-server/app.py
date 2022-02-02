@@ -25,7 +25,7 @@ ma = Marshmallow(app)
 api = Api(app)
 
 
-# It must be done after declaring app
+# It must be done after declaring app adn db
 
 from models import *
 from controller import *

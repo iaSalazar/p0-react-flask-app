@@ -72,13 +72,13 @@ def refresh():
     ret = {'access_token': new_token}
     return ret, 200
 
-""" @app.route("/singUp", methods=["PUT"])
+@app.route("/singUp", methods=["PUT"])
 def singUp():
     
     new_user = User(
  
             
-            mail = request.json['mail'],
+            username = request.json['username'],
             password = request.json['password'],
             roles = request.json['roles'],
             is_active = request.json['is_active']
@@ -89,44 +89,19 @@ def singUp():
     db.session.commit()
     
     return user_schema.dump(new_user)
-    return jsonify(mail = request.json['mail'],
-            password = request.json['password'],
-            roles = request.json['roles'],
-            is_active = request.json['is_active']) """
 
-
-
-class RecursoSingUp(Resource):
-    def get(self, id_usuario):
-        user = User.query.get_or_404(id_usuario)
-        return User_schema.dump(user)
-    
-    def put(self):
-        
-
-        new_user = User(
- 
-            
-            username = request.json['username'],
-            password = guard.hash_password(request.json['password']),
-            roles = request.json['roles'],
-            is_active = request.json['is_active']
-
-        )
-
-        db.session.add(new_user)
-
-        db.session.commit()
-
-        return user_schema.dump(new_user)
-
-api.add_resource(RecursoSingUp, '/singUp')
 
 ###############################################
 ###############################################3
 #SCHEMAS 
-class User_schema(ma.Schema):
+class UserSchema(ma.Schema):
     class Meta:
         fields = ("id", "username", "password","roles", "is_active")
 
-user_schema = User_schema()
+class EventSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "name", "description","id_user")
+
+user_schema = UserSchema()
+
+event_schema = EventSchema()

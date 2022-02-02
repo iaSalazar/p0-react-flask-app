@@ -84,7 +84,7 @@ def add_user():
  
             
             username = request.json['username'],
-            password = request.json['password'],
+            password = guard.hash_password(request.json['password']),
             roles = request.json['roles'],
             is_active = request.json['is_active']
 

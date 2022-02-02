@@ -7,7 +7,7 @@ import {
   Redirect,
   Link
 } from "react-router-dom";
-import {login} from '../auth'
+import {login, useAuth, logout} from '../auth'
 
 export default function Login() {
 
@@ -15,7 +15,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const token = sessionStorage.getItem("token")
   //const [useAuth, authFetch, login, logout] = useAuthProvider();
-  //const [logged] = useAuth();
+  const [logged] = useAuth();
 
   const onSubmitClick = (e) => {
     e.preventDefault()
@@ -55,29 +55,27 @@ export default function Login() {
   return (
     <div>
       <h2>Login</h2>
-     
-        <form action="#">
-
-          <div>
-            <input type="text"
-              placeholder="Username"
-              onChange={handleUsernameChange}
-              value={username}
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={handlePasswordChange}
-              value={password}
-            />
-          </div>
-          <button onClick={onSubmitClick} type="submit">
-            Login Now
-          </button>
-        </form>
-      
+      {!logged? <form action="#">
+        <div>
+          <input type="text" 
+            placeholder="Username" 
+            onChange={handleUsernameChange}
+            value={username} 
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={handlePasswordChange}
+            value={password}
+          />
+        </div>
+        <button onClick={onSubmitClick} type="submit">
+          Login Now
+        </button>
+      </form>
+      : <button onClick={() => logout()}>Logout</button>}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 
 import react, { useState, useEffect } from 'react';
-import {login, authFetch, useAuth, logout} from "../auth"
+//import {useAuthProvider} from "../auth"
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,6 +13,7 @@ export default function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const token = sessionStorage.getItem("token")
+  //const [useAuth, authFetch, login, logout] = useAuthProvider();
   //const [logged] = useAuth();
 
   const onSubmitClick = (e) => {

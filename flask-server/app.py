@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 app.config["JWT_SECRET_KEY"] = "super-secret"
 app.secret_key = "super-secret"
+
+app.config['JWT_IDENTITY_CLAIM'] = 'sub'
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'

@@ -6,9 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow  
 from flask_restful import Api, Resource 
 
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
+#from flask_jwt_extended import create_access_token
+#from flask_jwt_extended import get_jwt_identity
+#from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 import flask_praetorian
 import flask_cors
@@ -23,11 +23,16 @@ cors = flask_cors.CORS()
 guard.init_app(app, User)
 
 @app.route('/members', methods=["GET"])
-@jwt_required()
+@flask_praetorian.auth_required
 def members():
     # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
+    
     #return jsonify(logged_in_as=current_user), 200
+    return jsonify(
+        message="protected endpoint (allowed user {})".format(
+            flask_praetorian.current_user().username,
+        )
+    )
     return {"members": ["member1","Member2","Member3"]}, 200
 
 

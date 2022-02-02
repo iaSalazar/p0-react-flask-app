@@ -1,12 +1,13 @@
 
 import react, { useState, useEffect } from 'react';
-//import {useAuthProvider} from "../auth"
 import {
   BrowserRouter as Router,
-  Routes,
+  Switch,
   Route,
+  Redirect,
   Link
 } from "react-router-dom";
+import {login} from '../auth'
 
 export default function Login() {
 
@@ -33,7 +34,8 @@ export default function Login() {
     }).then(r => r.json())
       .then(token => {
         if (token.access_token) {
-          sessionStorage.setItem("token", token.access_token)
+          login(token)
+          //sessionStorage.setItem("token", token.access_token)
           console.log(token)
         }
         else {

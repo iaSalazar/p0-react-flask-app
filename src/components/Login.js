@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Navigate,
   Link
 } from "react-router-dom";
 import {login, useAuth, logout} from '../auth'
@@ -34,9 +34,9 @@ export default function Login() {
     }).then(r => r.json())
       .then(token => {
         if (token.access_token) {
-          login(token)
+          login(token.access_token)
           //sessionStorage.setItem("token", token.access_token)
-          console.log(token)
+          console.log(token.access_token)
         }
         else {
           console.log("Please type in correct username/password")
@@ -75,7 +75,9 @@ export default function Login() {
           Login Now
         </button>
       </form>
-      : <button onClick={() => logout()}>Logout</button>}
+      //:<button onClick={() => logout()}>Logout</button>}
+      : <Navigate to ="/"/>}
+      
     </div>
   )
 }

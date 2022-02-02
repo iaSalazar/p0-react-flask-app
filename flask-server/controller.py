@@ -103,7 +103,8 @@ def get_user(user_id):
     user = User.query.get_or_404(user_id)
     return user_schema.dump(user)
 
-@app.route("/event", methods=["PUT"])
+@app.route("/events", methods=["PUT"])
+@flask_praetorian.auth_required
 def add_event():
     """
     add new event
@@ -113,7 +114,7 @@ def add_event():
             
             name = request.json['name'],
             description = request.json['description'],
-            id_user = request.json['id_user']
+            id_user = flask_praetorian.current_user().id
 
         )
 

@@ -75,7 +75,7 @@ def refresh():
 
 
 
-@app.route("/singUp", methods=["PUT"])
+@app.route("/singUp", methods=["POST"])
 def add_user():
     """
     add new user
@@ -85,8 +85,8 @@ def add_user():
             
             username = request.json['username'],
             password = guard.hash_password(request.json['password']),
-            roles = request.json['roles'],
-            is_active = request.json['is_active']
+            roles = "",
+            is_active = True
 
         )
 

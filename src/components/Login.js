@@ -14,6 +14,8 @@ export default function Login() {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [singUpUsername, setSingUsername] = useState('')
+  const [singUpPassword, setSingPassword] = useState('')
   const token = sessionStorage.getItem("token")
   //const [useAuth, authFetch, login, logout] = useAuthProvider();
   const [logged] = useAuth();
@@ -44,6 +46,29 @@ export default function Login() {
         }
       })
   }
+
+  const onSubmitSingUpClick = (e) => {
+    e.preventDefault()
+    console.log("You pressed singUp")
+    let opts = {
+      'username': singUpUsername,
+      'password': singUpPassword
+    }
+    console.log(opts)
+    fetch('/singUp', {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(opts)
+    }).then(r => r.json())
+      .then(token => {
+        
+          console.log(token.access_token)
+        
+        
+      })
+  }
   const [emailError, setEmailError] = useState(false)
   const validateEmail = (e) => {
     var email = e.target.value
@@ -67,6 +92,19 @@ export default function Login() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
+  }
+  const handleSingUsernameChange = (e) => {
+    if (validator.isEmail(e.target.value)) {
+      setEmailError('Valid Email :)')
+      setUsername(e.target.value)
+    } else {
+      setEmailError('Enter valid Email!')
+    }
+    setSingUsername(e.target.value)
+  }
+
+  const handleSingPasswordChange = (e) => {
+    setSingPassword(e.target.value)
   }
 
   return (
@@ -100,7 +138,31 @@ export default function Login() {
       </form>
       //:<button onClick={() => logout()}>Logout</button>}
       : <Navigate to ="/"/>}
-      
+      <form action="#">
+      <div>
+          
+          <input type="email" 
+            placeholder="Username" 
+            onChange={handleSingUsernameChange}
+            value={singUpUsername} 
+          /> 
+        <span style={{
+          fontWeight: 'bold',
+          color: 'red',
+        }}>{emailError}</span>
+        </div>
+        <div>
+          <input 
+            type="password"
+            placeholder="Password"
+            onChange={handleSingPasswordChange}
+            value={singUpPassword}
+          />
+        </div>
+        <button onClick={onSubmitSingUpClick} type="submit" disabled={emailError==='Enter valid Email!'}>
+          singUp
+        </button>
+        </form>
     </div>
   )
 }

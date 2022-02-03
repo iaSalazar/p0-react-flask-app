@@ -137,6 +137,12 @@ function LogedView() {
     
     <div>
     <h2>Your Events:</h2>
+    <ul>
+      {events.map(e =>(
+        <li> {"name "+e.name +" descripción "+ e.description + " id: "+ e.id}</li>
+        
+      ))}
+    </ul>
     <button onClick={getEvents}>Refresh</button>
   </div>
     <button onClick={() => {logout();navigate('login')}  }>Logout</button>

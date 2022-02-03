@@ -62,7 +62,28 @@ function LogedView() {
         
       })
   }
-  
+
+  const [events, setEvents] = useState([])
+  const getEvents = (e) => {
+    e.preventDefault()
+    
+    
+    authFetch('/events', {
+      method: 'get',
+      headers: {
+        "Content-type": "application/json"
+      }
+      
+    }).then(r => r.json())
+      .then(r => {
+          setEvents(r)
+          console.log(r)
+        
+      })
+  }
+  const handleEvents = (e) => {
+    setEvents(e.target.value)
+  }
   
   const handleNameEvent = (e) => {
     setName(e.target.value)
@@ -113,6 +134,11 @@ function LogedView() {
         
         <button onClick={onDeleteClickEvent} type="submit">Delete Event</button>
     </form>
+    
+    <div>
+    <h2>Your Events:</h2>
+    <button onClick={getEvents}>Refresh</button>
+  </div>
     <button onClick={() => {logout();navigate('login')}  }>Logout</button>
   </div>)
 }
@@ -147,7 +173,6 @@ function Home() {
       <LogedView/>
       
       </div>}
-    
     </div>
     
   )

@@ -148,6 +148,24 @@ def get_event(id_event):
 
     return event_schema.dump(event)
 
+
+@app.route("/events/<int:id_event>", methods=["PUT"])
+def update_event(id_event):
+    
+   
+    event = Event.query.get_or_404(id_event)
+
+    if 'name' in request.json:
+
+        event.titulo = request.json['name']
+
+    if 'description' in request.json:
+
+        event.contenido = request.json['description']
+    
+    db.session.commit()
+    return event_schema.dump(event)
+
 @app.route("/events/<int:id_event>", methods=["DELETE"])
 def delete_event(id_event):
     

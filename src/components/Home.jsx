@@ -42,6 +42,28 @@ function LogedView() {
       })
   }
 
+  const onUpdateClickEvent = (e) => {
+    e.preventDefault()
+    console.log("You added one event")
+    let opts = {
+      'name': name,
+      'description': description
+    }
+    console.log(opts)
+    authFetch('/events/'+event_id, {
+      method: 'put',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(opts)
+    }).then(r => r.json())
+      .then(r => {
+          
+          console.log(r)
+        
+      })
+  }
+
   const onDeleteClickEvent = (e) => {
     e.preventDefault()
     console.log("You deleted one event")
@@ -138,6 +160,7 @@ function LogedView() {
     <div>
     <h2>Your Events:</h2>
     <ul>
+      
       {events.map(e =>(
         <li> {"name "+e.name +" descripción "+ e.description + " id: "+ e.id}</li>
         

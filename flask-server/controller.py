@@ -103,7 +103,7 @@ def get_user(user_id):
     user = User.query.get_or_404(user_id)
     return user_schema.dump(user)
 
-@app.route("/events", methods=["PUT"])
+@app.route("/events", methods=["POST"])
 @flask_praetorian.auth_required
 def add_event():
     """
@@ -150,13 +150,13 @@ def get_event(id_event):
 def delete_event(id_event):
     
    
-    new_event = Event.query.get_or_404(id_event)
+    event = Event.query.get_or_404(id_event)
 
-    db.session.delete(new_event)
+    db.session.delete(event)
 
     db.session.commit()
 
-    return '', 204
+    return event_schema.dump(event)
 
 
 

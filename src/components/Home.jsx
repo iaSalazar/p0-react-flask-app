@@ -16,10 +16,10 @@ function LogedView() {
   let navigate = useNavigate();
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [event_id, setEventId] = useState('')
   const token = sessionStorage.getItem("token")
   //const [useAuth, authFetch, login, logout] = useAuthProvider();
   const [logged] = useAuth();
-
   const onSubmitClickEvent = (e) => {
     e.preventDefault()
     console.log("You added one event")
@@ -29,7 +29,7 @@ function LogedView() {
     }
     console.log(opts)
     authFetch('/events', {
-      method: 'put',
+      method: 'post',
       headers: {
         "Content-type": "application/json"
       },
@@ -41,12 +41,39 @@ function LogedView() {
         
       })
   }
+
+  const onDeleteClickEvent = (e) => {
+    e.preventDefault()
+    console.log("You deleted one event")
+    let opts = {
+      'event_id': event_id
+    }
+    console.log(opts)
+    authFetch('/events/'+event_id, {
+      method: 'delete',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(opts)
+    }).then(r => r.json())
+      .then(r => {
+          
+          console.log(r)
+        
+      })
+  }
+  
+  
   const handleNameEvent = (e) => {
     setName(e.target.value)
   }
 
   const handleDescriptionEvent = (e) => {
     setDescription(e.target.value)
+  }
+
+  const handleIdEvent = (e) => {
+    setEventId(e.target.value)
   }
 
  
@@ -72,6 +99,19 @@ function LogedView() {
           />
         </div>
         <button onClick={onSubmitClickEvent} type="submit">Add event</button>
+    </form>
+    <form action="#">
+    <div>
+          <input type="text" 
+            placeholder="eventID"
+            onChange={handleIdEvent} 
+            value={event_id}
+            //onChange={handleDescription}
+            //value={username} 
+          />
+        </div>
+        
+        <button onClick={onDeleteClickEvent} type="submit">Delete Event</button>
     </form>
     <button onClick={() => {logout();navigate('login')}  }>Logout</button>
   </div>)

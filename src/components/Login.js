@@ -8,6 +8,7 @@ import {
   Link
 } from "react-router-dom";
 import {login, useAuth, logout} from '../auth'
+import validator from 'validator'
 
 export default function Login() {
 
@@ -43,8 +44,24 @@ export default function Login() {
         }
       })
   }
+  const [emailError, setEmailError] = useState(false)
+  const validateEmail = (e) => {
+    var email = e.target.value
+  
+    if (validator.isEmail(email)) {
+      setEmailError('Valid Email :)')
+    } else {
+      setEmailError('Enter valid Email!')
+    }
+  }
 
   const handleUsernameChange = (e) => {
+    if (validator.isEmail(e.target.value)) {
+      setEmailError('Valid Email :)')
+      setUsername(e.target.value)
+    } else {
+      setEmailError('Enter valid Email!')
+    }
     setUsername(e.target.value)
   }
 
@@ -57,11 +74,17 @@ export default function Login() {
       <h2>Login</h2>
       {!logged? <form action="#">
         <div>
-          <input type="text" 
+          
+          <input type="email" 
             placeholder="Username" 
             onChange={handleUsernameChange}
             value={username} 
           />
+          
+        <span style={{
+          fontWeight: 'bold',
+          color: 'red',
+        }}>{emailError}</span>
         </div>
         <div>
           <input
@@ -71,7 +94,7 @@ export default function Login() {
             value={password}
           />
         </div>
-        <button onClick={onSubmitClick} type="submit">
+        <button onClick={onSubmitClick} type="submit" disabled={emailError==='Enter valid Email!'}>
           Login Now
         </button>
       </form>

@@ -126,12 +126,14 @@ def add_event():
 
 
 @app.route("/events", methods=["GET"])
+@flask_praetorian.auth_required
 def get_all_event():
     """
     Get all events
     """
-    event = Event.query.all()
-
+    
+    event = Event.query.filter(Event.id_user==flask_praetorian.current_user().id)
+    id_user = flask_praetorian.current_user().id
     return jsonify(events_schema.dump(event))
 
 @app.route("/events/<int:id_event>", methods=["GET"])

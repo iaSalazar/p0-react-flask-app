@@ -6,7 +6,7 @@ from flask_restful import Api, Resource
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../build", static_url_path="/")
 
 app.config["JWT_SECRET_KEY"] = "super-secret"
 app.secret_key = "super-secret"

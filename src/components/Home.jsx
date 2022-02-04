@@ -28,7 +28,7 @@ function LogedView() {
       'description': description
     }
     console.log(opts)
-    authFetch('/events', {
+    authFetch('/api/events', {
       method: 'post',
       headers: {
         "Content-type": "application/json"
@@ -50,7 +50,7 @@ function LogedView() {
       'description': description
     }
     console.log(opts)
-    authFetch('/events/'+event_id, {
+    authFetch('/api/events/'+event_id, {
       method: 'put',
       headers: {
         "Content-type": "application/json"
@@ -71,7 +71,7 @@ function LogedView() {
       'event_id': event_id
     }
     console.log(opts)
-    authFetch('/events/'+event_id, {
+    authFetch('/api/events/'+event_id, {
       method: 'delete',
       headers: {
         "Content-type": "application/json"
@@ -90,7 +90,7 @@ function LogedView() {
     e.preventDefault()
     
     
-    authFetch('/events', {
+    authFetch('/api/events', {
       method: 'get',
       headers: {
         "Content-type": "application/json"
@@ -168,7 +168,7 @@ function LogedView() {
     </ul>
     <button onClick={getEvents}>Refresh</button>
   </div>
-    <button onClick={() => {logout();navigate('login')}  }>Logout</button>
+    <button onClick={() => {logout();navigate('/')}  }>Logout</button>
   </div>)
 }
 
@@ -179,7 +179,7 @@ function Home() {
   let navigate = useNavigate();
   
   useEffect(() => {
-    authFetch("/members").then(response => {
+    authFetch("/api/members").then(response => {
       if (response.status === 401){
         setMessage("Sorry you aren't authorized!")
         return null

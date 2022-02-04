@@ -23,7 +23,11 @@ cors = flask_cors.CORS()
 
 guard.init_app(app, User)
 
-@app.route('/members', methods=["GET"])
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+@app.route('/api/members', methods=["GET"])
 @flask_praetorian.auth_required
 def members():
     # Access the identity of the current user with get_jwt_identity
@@ -39,7 +43,7 @@ def members():
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-@app.route("/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
 def login():
     
     #req = request.get_json(force=True)
@@ -75,7 +79,7 @@ def refresh():
 
 
 
-@app.route("/singUp", methods=["POST"])
+@app.route("/api/singUp", methods=["POST"])
 def add_user():
     """
     add new user
@@ -95,7 +99,7 @@ def add_user():
     db.session.commit()
     return user_schema.dump(new_user)
 
-@app.route("/user/<int:user_id>", methods=["GET"])
+@app.route("/api/user/<int:user_id>", methods=["GET"])
 def get_user(user_id):
     """
     get user
@@ -103,7 +107,7 @@ def get_user(user_id):
     user = User.query.get_or_404(user_id)
     return user_schema.dump(user)
 
-@app.route("/events", methods=["POST"])
+@app.route("/api/events", methods=["POST"])
 @flask_praetorian.auth_required
 def add_event():
     """
@@ -125,7 +129,7 @@ def add_event():
     return event_schema.dump(new_event)
 
 
-@app.route("/events", methods=["GET"])
+@app.route("/api/events", methods=["GET"])
 @flask_praetorian.auth_required
 def get_all_event():
     """
@@ -136,7 +140,7 @@ def get_all_event():
     id_user = flask_praetorian.current_user().id
     return jsonify(events_schema.dump(event))
 
-@app.route("/events/<int:id_event>", methods=["GET"])
+@app.route("/api/events/<int:id_event>", methods=["GET"])
 def get_event(id_event):
     """
     Get specific event
@@ -149,7 +153,7 @@ def get_event(id_event):
     return event_schema.dump(event)
 
 
-@app.route("/events/<int:id_event>", methods=["PUT"])
+@app.route("/api/events/<int:id_event>", methods=["PUT"])
 def update_event(id_event):
     
    
@@ -166,7 +170,7 @@ def update_event(id_event):
     db.session.commit()
     return event_schema.dump(event)
 
-@app.route("/events/<int:id_event>", methods=["DELETE"])
+@app.route("/api/events/<int:id_event>", methods=["DELETE"])
 def delete_event(id_event):
     
    

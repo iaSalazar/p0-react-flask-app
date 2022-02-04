@@ -28,7 +28,7 @@ export default function Login() {
       'password': password
     }
     console.log(opts)
-    fetch('/login', {
+    fetch('/api/login', {
       method: 'post',
       headers: {
         "Content-type": "application/json"
@@ -55,7 +55,7 @@ export default function Login() {
       'password': singUpPassword
     }
     console.log(opts)
-    fetch('/singUp', {
+    fetch('/api/singUp', {
       method: 'post',
       headers: {
         "Content-type": "application/json"
@@ -137,7 +137,7 @@ export default function Login() {
         </button>
       </form>
       //:<button onClick={() => logout()}>Logout</button>}
-      : <Navigate to ="/"/>}
+      : <Navigate to ="/logged"/>}
       <form action="#">
       <div>
           

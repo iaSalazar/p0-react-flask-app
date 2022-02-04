@@ -1,5 +1,7 @@
 Para este proyecto se utilizó flask+react con patrón de arquitectura MVC.
 
+http://172.24.41.215:3000/
+
 
 
 # API

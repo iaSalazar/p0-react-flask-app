@@ -1,3 +1,48 @@
+Para este proyecto se utilizó flask+react con patrón de arquitectura MVC.
+
+
+
+# API
+<ip_machine>/ Acá podrá observar los eventos, crearlos e eliminarlos y ver la lista en la interfaz (primero debe hacer login)
+
+[POST]<ip_machine>/login ESTA ES LA PÁGINA BASE si no se crea una cuenta los otros end points fallan (para usar la interfaz).
+
+{
+     "username":"test",
+      "password":"test"
+}
+
+[POST]<ip_machine>/singUp crear una cuenta.
+
+{
+     "username":"test",
+      "password":"test"
+}
+
+
+
+[GET]<ip_machine>/events devuelve toda la lista de eventos con postman
+
+[GET]<ip_machine>/events/<int: id_event> devuelve un evento específico
+
+[PUT]<ip_machine>/events/<int: id_event> actualiza un evento específico (cambio de nombre y/o descripción)
+{
+    "name":"event test clave",
+    "description":"el evento de prueba  "
+}
+
+[DELETE]<ip_machine>/events/<int: id_event> elimina un evento específico
+
+[POST]<ip_machine>/events crea un evento
+{
+    "name":"event test clave",
+    "description":"el evento de prueba  "
+}
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
